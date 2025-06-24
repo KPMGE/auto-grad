@@ -3,7 +3,6 @@ from operation import Op
 from tensor import Tensor
 from name_manager import NameManager
 import numpy as np
-import math
 
 class Add(Op):
     def __call__(self, *args, **kwargs) -> Tensor:
@@ -233,10 +232,10 @@ class ReLU(Op):
         return [Tensor(grad, name=NameManager.new('relu_grad'))]
 
     def _relu_fn(self, x: float) -> float:
-        return x if x > 0 else 0
+        return x if x > 0.0 else 0.0
     
     def _relu_grad(self, x: float) -> float:
-        return 1 if x > 0 else 0
+        return 1.0 if x > 0.0 else 0.0
 
 class Sigmoid(Op):
     def __call__(self, *args, **kwargs) -> Tensor:
@@ -260,7 +259,7 @@ class Sigmoid(Op):
         return [Tensor(grad * back_grad.numpy(), name=NameManager.new('sigmod_grad'))]
 
     def _sigmoid(self, x: float) -> float:
-        return 1 / (1 + math.exp(-x))
+        return 1 / (1 + np.exp(-x))
 
 class Tanh(Op):
     def __call__(self, *args, **kwargs) -> Tensor:

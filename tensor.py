@@ -3,13 +3,11 @@ from typing import Union, Any
 import numbers
 
 import numpy as np
-import matplotlib.pyplot as plt
-
 
 class Tensor:
     def __init__(self,
         arr: Union[np.ndarray, list, numbers.Number, Tensor],
-        parents: list[Any] = [],
+        parents: list[Tensor] = [],
         requires_grad: bool = True,
         name: str = '',
         operation=None
